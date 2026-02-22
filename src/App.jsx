@@ -6,7 +6,6 @@ import {
     AnimatePresence,
 } from "framer-motion";
 import {
-    Github,
     Linkedin,
     Mail,
     MapPin,
@@ -18,11 +17,11 @@ import {
     Briefcase,
     GraduationCap,
     Award,
-    MessageSquare,
     Bot,
     Send,
     Sparkles,
     Loader2,
+    Phone,
 } from "lucide-react";
 
 // ==========================================
@@ -38,7 +37,6 @@ const PORTFOLIO_DATA = {
         email: "vicky.manavadariya321@gmail.com",
         phone: "+91 78748 04852",
         linkedin: "https://www.linkedin.com/in/vicky-manavadariya",
-        github: "#",
         about: "I engineer scalable, high-performance web applications. With a robust foundation in C#, .NET Core, Microservices, and Angular, I architect systems that handle complex business logic with elegance and speed. My philosophy is simple: clean code, seamless user experiences, and production-ready reliability.",
     },
     education: {
@@ -373,7 +371,6 @@ const AIChatWidget = () => {
                         }}
                         className="mb-4 w-[90vw] md:w-[400px] h-[500px] max-h-[70vh] bg-[#050505]/95 backdrop-blur-2xl border border-white/10 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden"
                     >
-                        {/* Chat Header */}
                         <div className="p-5 border-b border-white/10 bg-gradient-to-r from-cyan-900/30 to-blue-900/10 flex items-center justify-between">
                             <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 rounded-full bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
@@ -397,7 +394,6 @@ const AIChatWidget = () => {
                             </button>
                         </div>
 
-                        {/* Messages Area */}
                         <div className="flex-1 overflow-y-auto p-5 space-y-4 custom-scrollbar">
                             {messages.map((msg, i) => (
                                 <motion.div
@@ -435,7 +431,6 @@ const AIChatWidget = () => {
                             <div ref={messagesEndRef} />
                         </div>
 
-                        {/* Quick Suggestions (if only 1 message) */}
                         {messages.length === 1 && (
                             <div className="px-5 pb-2 flex flex-wrap gap-2">
                                 <button
@@ -461,7 +456,6 @@ const AIChatWidget = () => {
                             </div>
                         )}
 
-                        {/* Input Area */}
                         <form
                             onSubmit={handleSend}
                             className="p-4 border-t border-white/10 bg-[#0a0a0a] flex gap-2"
@@ -714,17 +708,49 @@ const Hero = () => {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, delay: 0.6 }}
-                    className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-end mt-4 md:mt-8"
+                    className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mt-4 md:mt-8"
                 >
-                    <p className="text-lg md:text-2xl text-slate-400 font-light max-w-2xl leading-relaxed border-l-2 border-cyan-500/50 pl-4 md:pl-6">
-                        I'm{" "}
-                        <strong className="text-white font-medium">
-                            Vicky Manavadariya
-                        </strong>
-                        , a Software Engineer specializing in C#, .NET Core,
-                        Microservices, and Angular.
-                    </p>
-                    <div className="flex justify-start lg:justify-end mt-4 lg:mt-0">
+                    {/* Replaced just text with Text + Image Layout */}
+                    <div className="lg:col-span-9 flex flex-col sm:flex-row gap-6 sm:items-center">
+                        {/* Animated Profile Image Placeholder */}
+                        <motion.div
+                            initial={{
+                                scale: 0.8,
+                                opacity: 0,
+                                filter: "blur(10px)",
+                            }}
+                            animate={{
+                                scale: 1,
+                                opacity: 1,
+                                filter: "blur(0px)",
+                            }}
+                            transition={{
+                                duration: 1,
+                                delay: 0.8,
+                                type: "spring",
+                            }}
+                            className="w-20 h-20 md:w-28 md:h-28 rounded-full border border-white/20 overflow-hidden shrink-0 relative group hover-target"
+                        >
+                            <div className="absolute inset-0 bg-cyan-500/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
+                            {/* Replace src with your actual image URL */}
+                            <img
+                                src="https://lh3.googleusercontent.com/a/ACg8ocKwH7nAB8AY1fSFBs2Tngj7UV7uDnW5dy2-zAPADSGhJRvh7j598A=s317-c-no"
+                                alt="Vicky Manavadariya"
+                                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-110"
+                            />
+                        </motion.div>
+
+                        <p className="text-lg md:text-2xl text-slate-400 font-light leading-relaxed border-l-2 border-cyan-500/50 pl-4 md:pl-6 max-w-2xl">
+                            I'm{" "}
+                            <strong className="text-white font-medium">
+                                Vicky Manavadariya
+                            </strong>
+                            , a Software Engineer specializing in C#, .NET Core,
+                            Microservices, and Angular.
+                        </p>
+                    </div>
+
+                    <div className="lg:col-span-3 flex justify-start lg:justify-end mt-4 lg:mt-0">
                         <Magnetic>
                             <a
                                 href="#projects"
@@ -736,11 +762,12 @@ const Hero = () => {
                     </div>
                 </motion.div>
             </div>
+
+            {/* ⚠️ Scrolling Marquee Removed From Here Completely */}
         </section>
     );
 };
 
-// Bento Box
 const About = () => {
     return (
         <section
@@ -881,34 +908,38 @@ const Expertise = () => {
                     {PORTFOLIO_DATA.skills.map((skill, index) => (
                         <div
                             key={index}
-                            className="border-b border-white/10 py-8 md:py-12 relative group cursor-pointer hover-target"
+                            className="border-b border-white/10 py-6 md:py-10 relative group cursor-pointer hover-target"
                             onMouseEnter={() => setHoveredIndex(index)}
                             onMouseLeave={() => setHoveredIndex(null)}
                         >
-                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
-                                <h3
-                                    className="text-4xl md:text-6xl font-black transition-all duration-500 uppercase tracking-tighter"
-                                    style={{
-                                        WebkitTextStroke:
-                                            hoveredIndex === index
-                                                ? "0px"
-                                                : "max(1px, 0.1vw) rgba(255,255,255,0.4)",
-                                        color:
-                                            hoveredIndex === index
-                                                ? "#fff"
-                                                : "transparent",
-                                    }}
-                                >
-                                    {skill.outline}
-                                </h3>
+                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10 w-full">
+                                <div className="w-full md:w-1/2 flex-shrink-0">
+                                    <h3
+                                        className="text-4xl md:text-6xl font-black transition-all duration-500 uppercase tracking-tighter"
+                                        style={{
+                                            WebkitTextStroke:
+                                                hoveredIndex === index
+                                                    ? "max(1px, 0.1vw) #fff"
+                                                    : "max(1px, 0.1vw) rgba(255,255,255,0.4)",
+                                            color:
+                                                hoveredIndex === index
+                                                    ? "#fff"
+                                                    : "transparent",
+                                        }}
+                                    >
+                                        {skill.outline}
+                                    </h3>
+                                </div>
 
                                 <div
-                                    className={`transition-all duration-500 ease-[0.22,1,0.36,1] overflow-hidden ${hoveredIndex === index ? "max-h-96 opacity-100" : "max-h-0 md:max-h-96 opacity-50 md:opacity-100 md:w-1/2"}`}
+                                    className={`w-full md:w-1/2 transition-all duration-500 ease-[0.22,1,0.36,1] overflow-hidden ${hoveredIndex === index ? "max-h-96 opacity-100" : "max-h-0 md:max-h-96 opacity-50 md:opacity-100"}`}
                                 >
                                     <div
-                                        className={`p-6 rounded-2xl md:bg-transparent md:border-none md:p-0 transition-all duration-500 ${hoveredIndex === index ? "bg-white/[0.05] border border-white/10 backdrop-blur-md" : ""}`}
+                                        className={`rounded-2xl transition-all duration-500 border ${hoveredIndex === index ? "p-6 bg-white/[0.05] border-white/10 backdrop-blur-md" : "p-0 border-transparent bg-transparent"}`}
                                     >
-                                        <p className="text-cyan-400 font-mono text-xs uppercase tracking-widest mb-4 hidden md:block">
+                                        <p
+                                            className={`font-mono text-xs uppercase tracking-widest mb-4 hidden md:block transition-colors duration-300 ${hoveredIndex === index ? "text-cyan-400" : "text-slate-500"}`}
+                                        >
                                             {skill.category}
                                         </p>
                                         <div className="flex flex-wrap gap-2">
@@ -1039,14 +1070,7 @@ const Projects = () => {
                             className="text-[clamp(3rem,8vw,5rem)] font-black tracking-tight"
                         />
                     </div>
-                    <Magnetic>
-                        <a
-                            href={PORTFOLIO_DATA.personal.github}
-                            className="hover-target inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors font-mono uppercase text-xs md:text-sm tracking-widest border-b border-white/20 pb-1 px-2 md:px-4 py-2 w-max"
-                        >
-                            View GitHub <ArrowUpRight size={16} />
-                        </a>
-                    </Magnetic>
+                    {/* GitHub link previously here is now removed */}
                 </div>
 
                 <div className="relative space-y-8 md:space-y-0">
@@ -1131,13 +1155,11 @@ const Contact = () => {
                     Ready to build?
                 </p>
 
-                <Magnetic>
-                    <a
-                        href={`mailto:${PORTFOLIO_DATA.personal.email}`}
-                        className="group relative inline-block mb-16 md:mb-24 hover-target w-full"
-                    >
+                {/* Restored the Magnetic Pull Animation for SAY HELLO */}
+                <div className="mb-16 md:mb-24 flex justify-center w-full">
+                    <Magnetic>
                         <h2
-                            className="text-[18vw] md:text-[13vw] font-black text-transparent tracking-tighter leading-none transition-colors duration-500 group-hover:text-white w-full text-center"
+                            className="text-[18vw] md:text-[13vw] font-black text-transparent tracking-tighter leading-none transition-colors duration-500 hover:text-white cursor-default select-none"
                             style={{
                                 WebkitTextStroke:
                                     "max(1px, 0.2vw) rgba(255,255,255,0.4)",
@@ -1145,13 +1167,45 @@ const Contact = () => {
                         >
                             SAY HELLO.
                         </h2>
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none text-black">
-                            <span className="px-6 py-3 md:px-8 md:py-4 rounded-full bg-cyan-400 font-black uppercase tracking-widest text-xs md:text-sm whitespace-nowrap shadow-[0_0_30px_rgba(34,211,238,0.5)]">
-                                Send Email
+                    </Magnetic>
+                </div>
+
+                {/* Contact Info Added Here */}
+                <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 mb-20 z-20">
+                    <Magnetic>
+                        <a
+                            href={`mailto:${PORTFOLIO_DATA.personal.email}`}
+                            className="flex flex-col items-center gap-4 hover-target group"
+                        >
+                            <div className="w-16 h-16 rounded-full border border-white/10 bg-white/[0.02] flex items-center justify-center group-hover:bg-cyan-500 group-hover:border-cyan-500 transition-colors duration-500">
+                                <Mail
+                                    size={24}
+                                    className="text-slate-400 group-hover:text-black transition-colors"
+                                />
+                            </div>
+                            <span className="text-lg md:text-xl font-medium text-slate-300 group-hover:text-white">
+                                {PORTFOLIO_DATA.personal.email}
                             </span>
-                        </div>
-                    </a>
-                </Magnetic>
+                        </a>
+                    </Magnetic>
+
+                    <Magnetic>
+                        <a
+                            href={`tel:${PORTFOLIO_DATA.personal.phone.replace(/\s+/g, "")}`}
+                            className="flex flex-col items-center gap-4 hover-target group"
+                        >
+                            <div className="w-16 h-16 rounded-full border border-white/10 bg-white/[0.02] flex items-center justify-center group-hover:bg-cyan-500 group-hover:border-cyan-500 transition-colors duration-500">
+                                <Phone
+                                    size={24}
+                                    className="text-slate-400 group-hover:text-black transition-colors"
+                                />
+                            </div>
+                            <span className="text-lg md:text-xl font-medium text-slate-300 group-hover:text-white">
+                                {PORTFOLIO_DATA.personal.phone}
+                            </span>
+                        </a>
+                    </Magnetic>
+                </div>
 
                 <div className="pt-8 md:pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8 w-full">
                     <p className="text-[10px] md:text-xs font-mono text-slate-500 uppercase tracking-widest">
@@ -1166,14 +1220,7 @@ const Contact = () => {
                         >
                             LinkedIn
                         </a>
-                        <a
-                            href={PORTFOLIO_DATA.personal.github}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="hover-target text-[10px] md:text-xs font-mono text-slate-500 hover:text-cyan-400 uppercase tracking-widest transition-colors"
-                        >
-                            GitHub
-                        </a>
+                        {/* GitHub removed from footer */}
                     </div>
                 </div>
             </div>
